@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %} Muro {% endblock %}
+
+{% block active %} Muro {% endblock %}
+
+{% block tab-inactive1%}<a class="nav-link" href="/dashboard">Dashboard</a>{% endblock %}
+
+{% block tab-inactive2%}</a>{% endblock %}
+
+{% block tab-logout%}<a href="/logout/" class="btn btn-primary">Salir</a>{% endblock %}
+
+
+
+{% block contenido %}
+
+<div class="container mt-5">
+    <div class="row align-items-top mb-5">
+        <div class="col border border-primary border-3 rounded">
+            <h2 class="mt-2">El Muro de {{request.session.usuario.name}}</h1>
+                <h5 class="mt-5">Escribe tu mensaje para el mundo</h4>
+                    <form action="/wall/crear" method="post">
+                        <!-- Esto usa la ruta que corresponde para crear el mensaje-->
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="inputDescription" name='mensaje'>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Postear!</button>
+                    </form>
+        </div>
+
+        <div class="col">
+            <div class="col border border-success border-3 rounded">
+                <h2 class="mt-2">Perlas de sabiduría</h2>
+                {% for m in mensajes reversed%}
+                <div class="col mt-1">
+                    <h6 class="mt-5"> El {{m.created_at | date:"d M Y" }}, {{m.user.name}} declara solemnemente que:
+                        </h4>
+                        <div class="mt-3">
+                            <h5 class="fst-italic text-danger">{{m.mensaje}}</h5>
+                            {% if request.session.usuario.id == m.user.id %}
+                            <div class="align-center mt-3">
+                                <a id="borrar" class="btn btn-danger" href="mensaje/{{m.id}}/borrar">Borrar Mensaje</a>
+                            </div>
+                            {% endif %}
+
+                            <div class="container">
+                                {% for c in m.comentarios.all reversed%}
+                                <div class="row">
+                                    <h6 class="mt-5"> En respuesta, el {{c.created_at | date:"d M Y" }}, {{c.user.name}}
+                                        respondió:
+                                        </h4>
+                                        <div class="container">
+                                            <h5 class="fst-italic text-primary">{{c.comentario}}</h5>
+                                        </div>
+                                        {% if request.session.usuario.id == c.user.id %}
+                                        <div class="align-center mt-3">
+                                            <a class="btn btn-danger"
+                                                href="comentario/{{c.id}}/borrar">Borrar Comentario</a>
+                                        </div>
+                                        {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <div class="container mt-3">
+                                <form action="/wall/comentario" method="post">
+                                    {% csrf_token %}
+                                    <h5 class="mt-5">Responde a la declaración</h5>
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control" id="inputDescription" name='comentario'>
+                                    </div>
+                                    <input type="hidden" name="id_mensaje_comentario" value="{{m.id}}">
+                                    <div class="align-center mt-3 mb-5">
+                                        <button type="submit" class="btn btn-primary">Agregar
+                                            comentario</button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                        </div>
+                </div>
+                {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}

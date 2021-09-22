@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %} Ingreso {% endblock %}
+
+{% block active %} Ingreso {% endblock %}
+
+{% block tab-inactive1%}<a class="nav-link" href="/registro">Registro</a>{% endblock %}
+
+{% block contenido %}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3 mt-3">
+                    <label for="email" name="email" class="form-label mt-2">Correo Electrónico {{variable}}</label>
+                    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">No compartas tu acceso con nadie</div>
+                </div>
+
+                <div class="mb-3 mt-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-4 mt-3">
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </div>
+                    <div class="col-6 mt-3">
+                        <button type="submit" class="btn btn-primary">Recuperar Contraseña</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

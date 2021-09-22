@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %} Registro {% endblock %}
+
+{% block active %} Registro {% endblock %}
+
+{% block tab-inactive1%}<a class="nav-link" href="/">Ingreso</a>{% endblock %}
+
+
+{% block contenido %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <form method="POST">
+                {% csrf_token %}
+                    <div class="mb-3 mb-3 mt-3 ">
+                        <label for="name" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" value="{{request.session.name}}"> <!--Variable de sesion para evitar errores-->
+                    </div>
+
+
+                    <!--<div class="mb-3 mt-3">
+                        <label for="birthday" class="form-label">Fecha de Nacimiento</label>
+                        <input type="date" class="form-control" name="birthday" id="birthday" value="{{request.session.birthday}}">
+                    </div>-->
+                
+                    <div class="mb-3 mt-3">
+                        <label for="email" class="form-label mt-2">Correo Electrónico</label>
+                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" value="{{request.session.email}}"> <!--Variable de sesion para evitar errores-->
+                        <div id="emailHelp" class="form-text">No compartas tu acceso con nadie</div>
+                    </div>
+
+                    <div class="mb-3 mt-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" name="password" value="password" id="password">
+                    </div>
+
+                    <div class="mb-3 mt-4">
+                      <label for="password_confirm" class="form-label">Confirmar Contraseña</label>
+                      <input type="password" class="form-control" id="password_confirm" name="password_confirm">
+                    </div>
+                    <input type="hidden" name="role" value="user">
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">Registro Nuevo Usuario</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+</div>
+    {% endblock %}
