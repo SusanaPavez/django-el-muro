@@ -7,7 +7,7 @@ from . import views, auth
 urlpatterns = [
     path('', views.wall),
     path('mensaje', auth.mensaje),
-    path('mensaje/<int:id>/borrar', auth.borrar),
+    path('mensaje/<int:id>/borrarmensaje', auth.borrarmensaje),
     path('comentario', auth.comentario),
     path('comentario/<int:id>/borrar', auth.borrar),
 ]

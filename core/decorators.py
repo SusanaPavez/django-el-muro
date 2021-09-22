@@ -6,7 +6,7 @@ def login_required(function):
 
     def wrapper(request, *args):
         if 'usuario' not in request.session:
-            messages.error(request, "Error, tu no estás logeado")
+            messages.error(request, "Error, tu no estás logueado")
             return redirect('/login')
         resp = function(request, *args)
         return resp
@@ -21,7 +21,7 @@ def admin_requerido(function):
         if 'usuario' in request.session:
             if request.session['usuario']['role'] != 'admin':
                 messages.error(
-                    request, "Error, no tienes permisos de administrador")
+                    request, "No tienes permisos de admin")
                 return redirect('/')
         else:
             messages.error(request, "Usuario no ha ingresado")

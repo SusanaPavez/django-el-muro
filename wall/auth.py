@@ -123,10 +123,17 @@ def comentario(request):
         return redirect(f"/wall")
 
 
-@login_required
+
 def borrar(request, id):
     print(request.GET)
     eliminar = Comentario.objects.get(id=id)
+    eliminar.delete()
+
+    return redirect("/wall")
+
+def borrarmensaje(request, id):
+    print(request.GET)
+    eliminar = Mensaje.objects.get(id=id)
     eliminar.delete()
 
     return redirect("/wall")

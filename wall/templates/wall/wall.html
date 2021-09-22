@@ -19,8 +19,7 @@
         <div class="col border border-primary border-3 rounded">
             <h2 class="mt-2">El Muro de {{request.session.usuario.name}}</h1>
                 <h5 class="mt-5">Escribe tu mensaje para el mundo</h4>
-                    <form action="/wall/crear" method="post">
-                        <!-- Esto usa la ruta que corresponde para crear el mensaje-->
+                    <form action="/wall/mensaje" method="post">
                         {% csrf_token %}
                         <div class="mb-3">
                             <input type="text" class="form-control" id="inputDescription" name='mensaje'>
@@ -40,7 +39,7 @@
                             <h5 class="fst-italic text-danger">{{m.mensaje}}</h5>
                             {% if request.session.usuario.id == m.user.id %}
                             <div class="align-center mt-3">
-                                <a id="borrar" class="btn btn-danger" href="mensaje/{{m.id}}/borrar">Borrar Mensaje</a>
+                                <a id="borrar" class="btn btn-danger" href="mensaje/{{m.id}}/borrarmensaje">Borrar Mensaje</a>
                             </div>
                             {% endif %}
 
